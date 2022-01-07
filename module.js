@@ -34,10 +34,9 @@ function searchById(ID) {
 }
 
 function searchByTitle(Title) {
-  let TitleName = bookTitle;
-  if (TitleName.includes(Title)) {
-    for (let i = 0; i < TitleName.length; i++) {
-      if (TitleName[i] == Title) {
+  if (bookTitle.includes(Title)) {
+    for (let i = 0; i < bookTitle.length; i++) {
+      if (bookTitle[i] == Title) {
         let position = i,
           quantity = bookStore[4][i],
           price = bookStore[3][i];
@@ -55,19 +54,18 @@ function searchByTitle(Title) {
 }
 
 function searchByAuthor(Author) {
-  if (author.includes(Author)){
+  if (author.includes(Author)) {
     let index = 0;
-    for (writer of author){
-      if (Author == writer){
-        return searchById(index)
-      }else{
-        index += 1
+    for (writer of author) {
+      if (Author == writer) {
+        return searchById(index);
+      } else {
+        index += 1;
       }
     }
-  }else {
-    return "Author is not there"
+  } else {
+    return "Author is not there";
   }
 }
-
 
 module.exports = { searchById, searchByTitle, searchByAuthor };
