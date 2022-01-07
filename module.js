@@ -34,7 +34,7 @@ function searchById(ID) {
 }
 
 function searchByTitle(Title) {
-  let TitleName = bookStore[1];
+  let TitleName = bookTitle;
   if (TitleName.includes(Title)) {
     for (let i = 0; i < TitleName.length; i++) {
       if (TitleName[i] == Title) {
@@ -55,30 +55,19 @@ function searchByTitle(Title) {
 }
 
 function searchByAuthor(Author) {
-  let Authors = bookStore[2];
-  for (Author of Authors) {
-    if (Authors.includes(Author)) {
-      let position = Author.indexOf(Author) + 1;
-      return searchById(position);
-    } else {
-      return "Author is not there";
+  if (author.includes(Author)){
+    let index = 0;
+    for (writer of author){
+      if (Author == writer){
+        return searchById(index)
+      }else{
+        index += 1
+      }
     }
+  }else {
+    return "Author is not there"
   }
 }
 
-// function sellBook(bookTitle, quantity){
-
-//   let chosenBook = searchByTitle(bookTitle)
-
-//   if (chosenBook == "Title is not there"){
-//     return "sorry book is not there"
-//   }else if(quantity >= chosenBook.quantity){
-//     // let bill = chosenBook.price * quantity
-//     console.log(chosenBook.price)
-//     // return `your bill is: $${bill}`
-//   }
-// }
-
-// console.log(sellBook("Start  why", 3))
 
 module.exports = { searchById, searchByTitle, searchByAuthor };
