@@ -19,16 +19,16 @@ let id = [1, 2, 3, 4, 5],
 let bookStore = [id, bookTitle, author, price, quantityAvailable];
 
 function searchById(ID) {
-  if (ID > bookStore[0].length) {
+  if (ID <= (id.length - id.length) || ID > id.length) {
     return "ID is not there";
   } else {
-    row = ID;
+    row = ID - 1;
     return `
-    BookId:    ${bookStore[0][row]}
-    bookTitle: ${bookStore[1][row]}
-    author:    ${bookStore[2][row]}
-    price:     $${bookStore[3][row]}
-    quantity   ${bookStore[4][row]}
+    BookId:    ${id[row]}
+    bookTitle: ${bookTitle[row]}
+    author:    ${author[row]}
+    price:     $${price[row]}
+    quantity   ${quantityAvailable[row]}
     `;
   }
 }
@@ -37,9 +37,9 @@ function searchByTitle(Title) {
   if (bookTitle.includes(Title)) {
     for (let i = 0; i < bookTitle.length; i++) {
       if (bookTitle[i] == Title) {
-        let position = i,
-          quantity = bookStore[4][i],
-          price = bookStore[3][i];
+        let position = i + 1,
+          quantity = bookStore[4][position],
+          price = bookStore[3][position];
         return {
           book: searchById(position),
           quantity: quantity,
@@ -55,7 +55,7 @@ function searchByTitle(Title) {
 
 function searchByAuthor(Author) {
   if (author.includes(Author)) {
-    let index = 0;
+    let index = 1;
     for (writer of author) {
       if (Author == writer) {
         return searchById(index);
