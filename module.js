@@ -1,8 +1,28 @@
+let id = [1, 2, 3, 4, 5],
+  bookTitle = [
+    "Start with why",
+    "But how do it know",
+    "Clean Code",
+    "Zero to One",
+    "You don't know JS",
+  ],
+  author = [
+    "Simon Sinek",
+    "J. Clark Scott",
+    "Robert Cecil Martin",
+    "Peter Thiel",
+    "Kyle Simpson",
+  ],
+  price = [80.0, 59.9, 50.0, 45.0, 39.9],
+  quantityAvailable = [13, 22, 5, 12, 9];
+
+let bookStore = [id, bookTitle, author, price, quantityAvailable];
+
 function searchById(ID) {
   if (ID > bookStore[0].length) {
     return "ID is not there";
   } else {
-    row = ID - 1;
+    row = ID;
     return `
     BookId:    ${bookStore[0][row]}
     bookTitle: ${bookStore[1][row]}
@@ -14,22 +34,31 @@ function searchById(ID) {
 }
 
 function searchByTitle(Title) {
-  TitleName = bookStore[1];
-  for (i = 0; i < TitleName.length; i++) {
-    if (TitleName.includes(Title)) {
-      position = Title.indexOf(Title) + 1;
-      return searchById(position);
-    } else {
-      return "Title is not there";
+  let TitleName = bookStore[1];
+  if (TitleName.includes(Title)) {
+    for (let i = 0; i < TitleName.length; i++) {
+      if (TitleName[i] == Title) {
+        let position = i,
+          quantity = bookStore[4][i],
+          price = bookStore[3][i];
+        return {
+          book: searchById(position),
+          quantity: quantity,
+          price: price,
+          quantityPosition: position,
+        };
+      }
     }
+  } else {
+    return "Title not there";
   }
 }
 
 function searchByAuthor(Author) {
-  Authors = bookStore[2];
+  let Authors = bookStore[2];
   for (Author of Authors) {
     if (Authors.includes(Author)) {
-      position = Author.indexOf(Author) + 1;
+      let position = Author.indexOf(Author) + 1;
       return searchById(position);
     } else {
       return "Author is not there";
@@ -37,12 +66,19 @@ function searchByAuthor(Author) {
   }
 }
 
-let id = [1],
-  bookTitle = ["Start with why"],
-  author = ["Simon Sinek"],
-  price = [80],
-  quantity = [13];
+// function sellBook(bookTitle, quantity){
 
-let bookStore = [id, bookTitle, author, price, quantity];
+//   let chosenBook = searchByTitle(bookTitle)
+
+//   if (chosenBook == "Title is not there"){
+//     return "sorry book is not there"
+//   }else if(quantity >= chosenBook.quantity){
+//     // let bill = chosenBook.price * quantity
+//     console.log(chosenBook.price)
+//     // return `your bill is: $${bill}`
+//   }
+// }
+
+// console.log(sellBook("Start  why", 3))
 
 module.exports = { searchById, searchByTitle, searchByAuthor };
