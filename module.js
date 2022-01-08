@@ -19,7 +19,7 @@ let id = [1, 2, 3, 4, 5],
 let bookStore = [id, bookTitle, author, price, quantityAvailable];
 
 function searchById(ID) {
-  if (ID <= (id.length - id.length) || ID > id.length) {
+  if (ID <= 0 || ID > id.length) {
     return "ID is not there";
   } else {
     row = ID - 1;
@@ -37,13 +37,13 @@ function searchByTitle(Title) {
   if (bookTitle.includes(Title)) {
     for (let i = 0; i < bookTitle.length; i++) {
       if (bookTitle[i] == Title) {
-        let position = i + 1,
-          quantity = bookStore[4][position],
-          price = bookStore[3][position];
+        let position = i ,
+          quantity = quantityAvailable[position],
+          priceOfBook = price[position];
         return {
-          book: searchById(position),
+          book: searchById(position + 1),
           quantity: quantity,
-          price: price,
+          price: priceOfBook,
           quantityPosition: position,
         };
       }
@@ -68,4 +68,26 @@ function searchByAuthor(Author) {
   }
 }
 
-module.exports = { searchById, searchByTitle, searchByAuthor };
+function sellBook(bookRequested, quantityRequested, userBalance) {
+  let chosenBook = searchByTitle(bookRequested),
+    bookQuantity = chosenBook.quantity,
+    bookPosition = chosenBook.quantityPosition,
+    bookPrice = chosenBook.price,
+    totalBill = quantityRequested * bookPrice;
+  if (chosenBook == "Title not there") {
+    return "No book available";
+  } else {
+    if (quantityRequested <= bookQuantity) {
+      if (userBalance >= totalBill) {
+        return `Your bill is ${totalBill}`;
+      } else {
+        return `Sorry you balance is low => bill: ${totalBill}`;
+      }
+    } else {
+      return `we can't serve you with these ${quantityRequested} amount of books now!`;
+    }
+  }
+}
+
+console.log(sellBook("Clean Code", 4, 200));
+module.exports = { searchById, searchByTitle, searchByAuthor, sellBook };
