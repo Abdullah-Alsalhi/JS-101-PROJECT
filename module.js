@@ -37,7 +37,7 @@ function searchByTitle(Title) {
   if (bookTitle.includes(Title)) {
     for (let i = 0; i < bookTitle.length; i++) {
       if (bookTitle[i] == Title) {
-        let position = i ,
+        let position = i,
           quantity = quantityAvailable[position],
           priceOfBook = price[position];
         return {
@@ -89,5 +89,4 @@ function sellBook(bookRequested, quantityRequested, userBalance) {
   }
 }
 
-console.log(sellBook("Clean Code", 4, 200));
 module.exports = { searchById, searchByTitle, searchByAuthor, sellBook };
